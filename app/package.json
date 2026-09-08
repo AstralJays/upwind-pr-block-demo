@@ -1,0 +1,13 @@
+{
+  "name": "upwind-pr-block-demo-app",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Intentionally vulnerable deps for Upwind SCA PR-block demo — DO NOT USE IN PROD",
+  "dependencies": {
+    "lodash": "4.17.15",
+    "minimist": "0.0.8",
+    "axios": "0.18.0",
+    "express": "4.16.0",
+    "jquery": "3.3.1"
+  }
+}

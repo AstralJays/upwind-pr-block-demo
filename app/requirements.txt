@@ -1,0 +1,6 @@
+# Intentionally vulnerable pins for Upwind SCA PR-block demo — DO NOT USE IN PROD
+pyyaml==5.3.1
+requests==2.19.1
+urllib3==1.24.2
+jinja2==2.10.1
+django==2.2.0
