@@ -58,3 +58,31 @@ resource "aws_db_instance" "demo" {
   skip_final_snapshot  = true
   storage_encrypted    = false
 }
+
+resource "aws_iam_policy" "admin_like" {
+  name = "upwind-pr-block-demo-admin"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = "*"
+      Resource = "*"
+    }]
+  })
+}
+
+resource "aws_instance" "open_ssh" {
+  ami           = "ami-0abcdef1234567890"
+  instance_type = "t3.micro"
+
+  associate_public_ip_address = true
+
+  metadata_options {
+    http_tokens = "optional" # IMDSv1 allowed
+  }
+
+  user_data = <<-EOT
+    #!/bin/bash
+    echo "password=SuperSecret123" > /tmp/creds.txt
+  EOT
+}
