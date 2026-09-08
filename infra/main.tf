@@ -86,3 +86,34 @@ resource "aws_instance" "open_ssh" {
     echo "password=SuperSecret123" > /tmp/creds.txt
   EOT
 }
+
+resource "aws_s3_bucket" "logs_public" {
+  bucket = "upwind-pr-block-demo-logs-public"
+  acl    = "public-read-write"
+}
+
+resource "aws_security_group" "open_ssh_world" {
+  name        = "upwind-pr-block-demo-open-ssh"
+  description = "Open SSH to the world for PR-block demo"
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_ebs_volume" "unencrypted" {
+  availability_zone = "us-east-1a"
+  size              = 10
+  encrypted         = false
+}
